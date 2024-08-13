@@ -52,7 +52,7 @@ export default function App() {
 
               <CustomButton
                 title="Continue with Email"
-                handlePress={() => router.push("/auth/sign-in")}
+                handlePress={() => router.push("/sign-in")}
                 containerStyles="w-full mt-7"
               />
             </View>

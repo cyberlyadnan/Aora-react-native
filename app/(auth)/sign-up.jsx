@@ -7,7 +7,7 @@ import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { Link } from "expo-router";
 
-const signIn = () => {
+const SignUp = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -15,50 +15,70 @@ const signIn = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {};
+  const submit = () => {
+    // Handle form submission logic
+  };
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
-        <View className="w-full justify-center max-h-[85vh] px-4 my-6">
+        <View
+          className="w-full flex justify-center h-full px-4 my-6"
+        >
           <Image
             source={images.logo}
             resizeMode="contain"
-            className="w-[115px] h-[35px]"
+            className="w-[115px] h-[34px]"
           />
 
-          <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">
-            Log In To Aora
+          <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
+            Sign Up to Aora
           </Text>
+
+          <FormField
+            title="Username"
+            value={form.username}
+            handleChangeText={(e) => setForm({ ...form, username: e })}
+            otherStyles="mt-10"
+          />
+
           <FormField
             title="Email"
             value={form.email}
             handleChangeText={(e) => setForm({ ...form, email: e })}
             otherStyles="mt-7"
-            keyBoardType="email-address"
+            keyboardType="email-address"
           />
+
           <FormField
             title="Password"
-            value={form.email}
+            value={form.password}
             handleChangeText={(e) => setForm({ ...form, password: e })}
             otherStyles="mt-7"
           />
+
           <CustomButton
-            title="Sign In"
+            title="Sign Up"
             handlePress={submit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
           />
 
-          <View className="justify-center pt-5 flex-row gap-2">
+          <View className="flex justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">
-              Don't have an account?
-              <Link href="/sign-up" className="text-lg font-psemibold text-secondary">Sign Up</Link>
-              </Text>
+              Have an account already?
+            </Text>
+            <Link
+              href="/sign-in"
+              className="text-lg font-psemibold text-secondary"
+            >
+              Login
+            </Link>
           </View>
-        </View>        
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default signIn;
+export default SignUp;

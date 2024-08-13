@@ -1,9 +1,10 @@
-import { Text, View } from "react-native";
+import { Text, View, ActivityIndicator } from "react-native";
 import { Slot, SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
   const [fontsLoaded, error] = useFonts({
@@ -18,23 +19,36 @@ const RootLayout = () => {
     "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
   });
 
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, error]);
 
-  useEffect(()=>{
-    if(error) throw error
-    if(fontsLoaded) SplashScreen.hideAsync()
-  },[fontsLoaded,error])
-
-  if(!fontsLoaded && !error) return <Text>Hello, World!</Text>
+  if (!fontsLoaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{headerShown:false}}/>
-      <Stack.Screen name="(auth)" options={{headerShown:false}}/>
-      <Stack.Screen name="(tabs)" options={{headerShown:false}}/>
-      <Stack.Screen name="/search/[search]" options={{headerShown:false}}/>
-    </Stack>
-  )
-}
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
 
+        {/* <Stack.Screen name="/search/[search]" options={{ headerShown: false }} /> */}
+      </Stack>
+    </GestureHandlerRootView>
+  );
+};
 
-export default RootLayout
+export default RootLayout;
