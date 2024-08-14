@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, View, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -6,9 +5,16 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { images } from "../constants";
 import CustomButton from "../components/CustomButton";
 import { StatusBar } from "expo-status-bar";
-import { Link, router } from "expo-router";
+import { Redirect, router } from "expo-router";
+import { useGlobalContext } from "../context/GlobalProvider";
 
 export default function App() {
+  const { loading, isLogged } = useGlobalContext();
+
+  if (!loading && isLogged) {
+    return <Redirect href="/home" />;
+  }
+
   return (
     <GestureHandlerRootView className="flex-1">
       <SafeAreaProvider>

@@ -1,38 +1,51 @@
-import { View, Text } from "react-native";
-import React from "react";
-import { Tabs, Redirect } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { Redirect, Tabs } from "expo-router";
+import { Image, Text, View } from "react-native";
+
 import { icons } from "../../constants";
+// import { Loader } from "../../components";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
-    <View className="items-center justify-center">
+    <View className="flex items-center justify-center gap-2">
       <Image
         source={icon}
-        resizemode="contain"
+        resizeMode="contain"
         tintColor={color}
         className="w-6 h-6"
       />
-      <Text className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`} style={{color:color}}>
+      <Text
+        className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
+        style={{ color: color }}
+      >
         {name}
       </Text>
     </View>
   );
 };
 
-const TabsLayout = () => {
+const TabLayout = () => {
+  const { loading, isLogged } = useGlobalContext();
+
+  if (!loading && !isLogged) return <Redirect href="/sign-in" />;
+
   return (
     <>
-      <Tabs screenOptions={{
-        tabBarShowLabel:false,
-        tabBarActiveTintColor:"#FFA011",
-        tabBarInactiveTintColor:"#CDCDE0",
-        tabBarStyle:{
-          backgroundColor:"#161622",
-          borderTopWidth:1,
-          borderTopColor:"#232533",
-          height:84,
-        }
-      }}>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: "#FFA001",
+          tabBarInactiveTintColor: "#CDCDE0",
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            backgroundColor: "#161622",
+            borderTopWidth: 1,
+            borderTopColor: "#232533",
+            height: 89,
+            paddingBottom: 10,
+          },
+        }}
+      >
         <Tabs.Screen
           name="home"
           options={{
@@ -63,6 +76,7 @@ const TabsLayout = () => {
             ),
           }}
         />
+
         <Tabs.Screen
           name="create"
           options={{
@@ -94,8 +108,11 @@ const TabsLayout = () => {
           }}
         />
       </Tabs>
+
+      {/* <Loader isLoading={loading} /> */}
+      <StatusBar backgroundColor="#161622" style="light" />
     </>
   );
 };
 
-export default TabsLayout;
+export default TabLayout;
