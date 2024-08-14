@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "sora",
-    "slug": "sora",
+    "name": "aora",
+    "slug": "aora",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,21 +12,33 @@
       "backgroundColor": "#ffffff"
     },
     "scheme": "sora",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true,
-      "package":"com.rnf.aora"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.rnf.aora"
+      "package": "com.cyberlyadnan.aora"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-router", "expo-font"]
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3fbce0ce-e0c1-4955-a1c4-257330352a4c"
+      }
+    }
   }
 }
